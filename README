@@ -1,0 +1,5 @@
+This project will generate a manifest file (appcache) to use with an HTML5 web app so it can operate offline.
+
+When developing, refeshing this file is a pain in the ass as it needs to be updated with every build in order for the offline app to "notice" the change and update its files. Run this and it will kick off in a console and monitor the folder you want, and with every change a new appcache file will be generated.
+
+In order to build a suitable appcache file, an exclude file, AppCacheExclude.txt needs to exist in the root folder as well. This will tell tool not to include certain files in the appcache it generates (e.g. web.config, code files etc...). I've attached an example.

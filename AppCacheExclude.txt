@@ -1,0 +1,11 @@
+AppCacheExclude.txt
+mycache.appcache
+MyApp.csproj
+MyApp.csproj.user
+MyApp.sln
+MyApp.v12.suo
+Web.config
+bin\*
+obj\*
+Properties\*
+.svn\*
