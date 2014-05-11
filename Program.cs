@@ -43,6 +43,8 @@ namespace ManifestGenerator
                     Console.Write("Filename for manifest file to generate in that directory (e.g. mycache.appcache) ? ");
                     _manifestFile = Console.ReadLine();
 
+
+
                     Console.WriteLine();
                 }
                 else
@@ -51,7 +53,10 @@ namespace ManifestGenerator
                     _manifestFile = args[1];    
                 }
 
-                
+                if (!File.Exists(_rootDirectory + @"\AppCacheExclude.txt"))
+                {
+                    throw new Exception("AppCacheExclude.txt file is not present in the root directory!");
+                }
 
                 _fileSystemWatcher = new FileSystemWatcher();
                 _fileSystemWatcher.Path = _rootDirectory;
@@ -63,7 +68,8 @@ namespace ManifestGenerator
                 _fileSystemWatcher.Renamed += new RenamedEventHandler(FileRenamed);
     
                 _fileSystemWatcher.EnableRaisingEvents = true;
-                Console.WriteLine(string.Format("Monitoring {0} for file changes, will save to {1}",_rootDirectory, _manifestFile));
+                Console.WriteLine(string.Format("Monitoring {0} for file changes, will save manifest to {1}",_rootDirectory, _manifestFile));
+                Console.WriteLine();
                 System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
 
             }
