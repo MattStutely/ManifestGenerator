@@ -23,8 +23,8 @@ namespace ManifestGenerator
                 Console.SetWindowSize(114,24);
                 Console.Clear();
 
-                Console.WriteLine("Web App Manifest Generator (c) Matt Stutely 2014");
-                Console.WriteLine("========================================");
+                Console.WriteLine("HTML 5 Web App Manifest Generator - @MattStutely - www.digiminster.com");
+                Console.WriteLine("======================================================================");
                 Console.WriteLine();
 
                 //how the exclude file works
@@ -60,6 +60,7 @@ namespace ManifestGenerator
 
                 _fileSystemWatcher = new FileSystemWatcher();
                 _fileSystemWatcher.Path = _rootDirectory;
+                _fileSystemWatcher.IncludeSubdirectories = true;
                 _fileSystemWatcher.NotifyFilter = NotifyFilters.LastWrite| NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 _fileSystemWatcher.Filter = "*.*";
                 _fileSystemWatcher.Changed += new FileSystemEventHandler(FileChanged);
