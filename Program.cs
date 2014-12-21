@@ -103,7 +103,6 @@ namespace ManifestGenerator
             _fileSystemWatcher.EnableRaisingEvents = false;
             var generator = new Generator();
             generator.GenerateAppCache(_rootDirectory, _manifestFile);
-            //Console.WriteLine(generator.GenerateAppCache(_rootDirectory, _manifestFile));
             _fileSystemWatcher.EnableRaisingEvents = true;
         }
     }

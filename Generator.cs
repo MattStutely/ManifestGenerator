@@ -13,11 +13,29 @@ namespace ManifestGenerator
         public string GenerateAppCache(string rootPath, string fileToCreate)
         {
             _rootPath = rootPath + @"\";
+            var fallback = new List<string>();
+            _excludeList=new List<string>();
+
             //check if we have an exclude file and handle it
             if (File.Exists(_rootPath + @"AppCacheExclude.txt"))
             {
                 var excludeFile = File.ReadAllLines(_rootPath + @"\AppCacheExclude.txt");
-                _excludeList = new List<string>(excludeFile);    
+                for (var i = 0; i < excludeFile.Length; i++)
+                {
+                    if (excludeFile[i] == "FALLBACK:")
+                    {
+                        //get everything else after this and stop
+                        for (var j = i+1; j < excludeFile.Length; j++)
+                        {
+                            fallback.Add(excludeFile[j]);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        _excludeList.Add(excludeFile[i]);
+                    }
+                }
             }
 
             _appCache.AppendLine("CACHE MANIFEST");
@@ -30,6 +48,17 @@ namespace ManifestGenerator
 
             _appCache.AppendLine("NETWORK:");
             _appCache.AppendLine("*");
+
+            //fallback stuff
+            if (fallback.Count != 0)
+            {
+                _appCache.AppendLine("FALLBACK:");
+                foreach (var item in fallback)
+                {
+                    _appCache.AppendLine(item);
+                }
+            }
+
             
             string fileName = _rootPath + fileToCreate;
             using (StreamWriter sw = new StreamWriter(fileName, false))
